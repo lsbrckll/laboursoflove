@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labours of Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: #fefefe;
+            color: #1a1a1a;
+            line-height: 1.8;
+            padding-top: 70px;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(254, 254, 254, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .author-name {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-size: 0.9rem;
+            align-items: center;
+        }
+
+        .nav-links button {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0;
+        }
+
+        .nav-links button:hover {
+            color: #1a1a1a;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 40px;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+
+        .container.bio-open {
+            transform: translateX(-140px);
+            opacity: 0.3;
+        }
+
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .bio-toggle {
+            position: absolute;
+            top: 20px;
+            right: 0;
+            font-size: 0.85rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .bio-toggle:hover {
+            color: #666;
+        }
+
+        .contact-expanded {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 280px;
+            height: 100vh;
+            padding: 100px 30px 30px;
+            background: #fefefe;
+            border-left: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.7;
+            z-index: 1001;
+            transition: right 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .contact-expanded.show {
+            right: 0;
+        }
+
+        .contact-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .contact-close:hover {
+            color: #333;
+        }
+
+        .contact-expanded h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .contact-expanded a {
+            color: #667eea;
+            text-decoration: none;
+            border-bottom: 1px solid #667eea;
+        }
+
+        .contact-expanded a:hover {
+            color: #764ba2;
+            border-bottom-color: #764ba2;
+        }
+
+        .bio-expanded {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 280px;
+            height: 100vh;
+            padding: 100px 30px 30px;
+            background: #fefefe;
+            border-left: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.7;
+            z-index: 1001;
+            transition: right 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .bio-expanded.show {
+            right: 0;
+        }
+
+        .bio-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .bio-close:hover {
+            color: #333;
+        }
+
+        .site-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            font-style: italic;
+            display: inline-block;
+        }
+
+        .site-description {
+            font-size: 1.05rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 18px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px 25px;
+            margin: 15px auto;
+            max-width: 650px;
+        }
+
+        .topic {
+            font-size: 0.95rem;
+            color: #888;
+            transition: all 0.3s ease;
+            cursor: default;
+            white-space: nowrap;
+        }
+
+        .topic:hover {
+            color: #1a1a1a;
+            transform: translateY(-1px);
+        }
+
+        .topic:nth-child(1):hover { color: #e63946; }
+        .topic:nth-child(2):hover { color: #2a9d8f; }
+        .topic:nth-child(3):hover { color: #9b59b6; }
+        .topic:nth-child(4):hover { color: #e67e22; }
+        .topic:nth-child(5):hover { color: #3498db; }
+        .topic:nth-child(6):hover { color: #d4af37; }
+        .topic:nth-child(7):hover { color: #c0392b; }
+        .topic:nth-child(8):hover { color: #16a085; }
+        .topic:nth-child(9):hover { color: #8e44ad; }
+        .topic:nth-child(10):hover { color: #27ae60; }
+        .topic:nth-child(11):hover { color: #e74c3c; }
+        .topic:nth-child(12):hover { color: #2980b9; }
+
+        .subscribe-inline {
+            padding: 25px 0 35px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .subscribe-inline p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .subscribe-inline p::after {
+            content: ' →';
+            font-style: normal;
+        }
+
+        .subscribe-form-inline {
+            display: flex;
+            max-width: 420px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .subscribe-form-inline input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+            font-family: 'Work Sans', sans-serif;
+            color: #1a1a1a;
+        }
+
+        .subscribe-form-inline input:focus {
+            outline: none;
+            border-color: #1a1a1a;
+        }
+
+        .subscribe-form-inline input::placeholder {
+            color: #999;
+        }
+
+        .subscribe-form-inline button {
+            padding: 10px 25px;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Work Sans', sans-serif;
+            transition: background 0.3s ease;
+        }
+
+        .subscribe-form-inline button:hover {
+            background: #333;
+        }
+
+        .category-nav {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .category-item {
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .category-btn {
+            background: none;
+            border: none;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.95rem;
+            color: #999;
+            cursor: pointer;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .category-btn:hover {
+            color: #1a1a1a;
+        }
+
+        .category-btn.active {
+            color: #1a1a1a;
+            border-bottom-color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        .category-desc {
+            font-size: 0.8rem;
+            color: #aaa;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .essay-list {
+            padding: 60px 0;
+        }
+
+        .essay-item {
+            padding: 50px 0;
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .essay-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .essay-item:hover {
+            padding-left: 20px;
+        }
+
+        .essay-item[data-category] {
+            display: none;
+        }
+
+        .essay-item[data-category].show {
+            display: block;
+        }
+
+        .essay-date {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+        }
+
+        .essay-item h2 {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .essay-item h2:hover {
+            color: #666;
+        }
+
+        .essay-excerpt {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .read-link {
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .read-link:hover {
+            border-bottom-color: transparent;
+            padding-left: 5px;
+        }
+
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px;
+            }
+
+            .top-nav {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+                padding: 15px 30px;
+            }
+
+            .container {
+                padding: 0 30px;
+            }
+
+            .container.bio-open {
+                transform: translateX(-80px);
+            }
+
+            header {
+                padding: 50px 0 40px;
+            }
+
+            .site-title {
+                font-size: 2rem;
+            }
+
+            .topics {
+                gap: 12px 20px;
+                max-width: 100%;
+            }
+
+            .topic {
+                font-size: 0.9rem;
+            }
+
+            .bio-expanded {
+                width: 100%;
+                right: -100%;
+                padding: 80px 30px 30px;
+            }
+
+            .bio-expanded.show {
+                right: 0;
+            }
+
+            .subscribe-inline {
+                padding: 30px 0;
+            }
+
+            .subscribe-form-inline {
+                flex-direction: column;
+                max-width: 100%;
+            }
+
+            .subscribe-form-inline input,
+            .subscribe-form-inline button {
+                width: 100%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .bio-expanded,
+            .contact-expanded {
+                width: 100%;
+                right: -100%;
+                padding: 80px 30px 30px;
+            }
+
+            .bio-expanded.show,
+            .contact-expanded.show {
+                right: 0;
+            }
+
+            .category-nav {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .category-item {
+                max-width: 100%;
+            }
+
+            .essay-item {
+                padding: 40px 0;
+            }
+
+            .essay-item h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bio-expanded">
+        <span class="bio-close" onclick="toggleBio()">×</span>
+        <p>L. R. C. Brickell is a 17-year-old student currently learning Latin, Greek, and Sanskrit, hoping to study Classics at university later this year.</p>
+        <p>Their passion for the ancient world began at age 10 with collecting and studying ancient coins, which opened up a lifelong fascination with classical antiquity.</p>
+        <p>Particular interests include Homer, Vergil, and Joyce—tracing the echoes of epic tradition from antiquity through to modernism.</p>
+    </div>
+
+    <div class="contact-expanded">
+        <span class="contact-close" onclick="toggleContact()">×</span>
+        <h3>Get in Touch</h3>
+        <p>Have thoughts on a piece? Questions about classics? Interested in contributing a guest essay?</p>
+        <p>Reach out at <a href="mailto:hello@laboursoflove.com">hello@laboursoflove.com</a></p>
+        <p style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
+            Or connect on social media:<br>
+            Twitter: <a href="https://twitter.com/yourusername">@yourusername</a>
+        </p>
+    </div>
+
+    <nav class="top-nav">
+        <div class="author-name">L. R. C. Brickell</div>
+        <div class="nav-links">
+            <button onclick="toggleBio()">About</button>
+            <button onclick="toggleContact()">Contact</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1 class="site-title">Labours of Love</h1>
+            <p class="site-description">Essays on classical antiquity and the enduring questions of the human experience:</p>
+            <div class="topics">
+                <span class="topic">🎨 art</span>
+                <span class="topic">📚 literature</span>
+                <span class="topic">💭 philosophy</span>
+                <span class="topic">🗣️ linguistics</span>
+                <span class="topic">⏳ history</span>
+                <span class="topic">🪙 numismatics</span>
+                <span class="topic">🏛️ archaeology</span>
+                <span class="topic">🗳️ politics</span>
+                <span class="topic">🌍 languages</span>
+                <span class="topic">⚖️ law</span>
+                <span class="topic">🎭 theater</span>
+                <span class="topic">📜 epigraphy</span>
+            </div>
+        </header>
+
+        <div class="subscribe-inline">
+            <p>Thoughtful writing, delivered on Sundays</p>
+            <form class="subscribe-form-inline" action="https://thelaboursoflove.substack.com/subscribe" method="post">
+                <input type="email" name="email" placeholder="your@email.com" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+
+        <div class="category-nav">
+            <div class="category-item">
+                <button class="category-btn active" data-filter="deep-dives">Deep Dives</button>
+                <p class="category-desc">Extended explorations of classical texts, ideas, and historical moments</p>
+            </div>
+            <div class="category-item">
+                <button class="category-btn" data-filter="interviews">Expert Interviews</button>
+                <p class="category-desc">Conversations with world-leading scholars from the field of classics</p>
+            </div>
+            <div class="category-item">
+                <button class="category-btn" data-filter="highlights">Highlights</button>
+                <p class="category-desc">Curated selections and guest contributions on classical themes</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="essay-list">
+            <article class="essay-item show" data-category="deep-dives">
+                <div class="essay-date">December 15, 2024</div>
+                <h2>The Myth of Sisyphus: Finding Joy in the Struggle</h2>
+                <p class="essay-excerpt">
+                    What can we learn from the eternal punishment of Sisyphus? This ancient tale speaks to our contemporary struggles with meaning, persistence, and finding purpose in repetitive work. Perhaps Camus was right—we must imagine Sisyphus happy.
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+
+            <article class="essay-item show" data-category="interviews">
+                <div class="essay-date">December 8, 2024</div>
+                <h2>Women in Ancient Rome: A Conversation with Dr. Sarah Mitchell</h2>
+                <p class="essay-excerpt">
+                    In this interview, Dr. Mitchell discusses the complex role of women in Roman society—from businesswomen to poets, from empresses to revolutionaries. We explore the lives often hidden in the margins of history books.
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+
+            <article class="essay-item show" data-category="deep-dives">
+                <div class="essay-date">November 30, 2024</div>
+                <h2>The Symposium: Ancient Greece's Ultimate Dinner Party</h2>
+                <p class="essay-excerpt">
+                    More than just a meal, the symposium was where philosophy, politics, and poetry collided. Understanding this social institution gives us insight into the heart of Greek culture and the birth of Western intellectual tradition.
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+
+            <article class="essay-item show" data-category="highlights">
+                <div class="essay-date">November 22, 2024</div>
+                <h2>Stoic Philosophy in a World of Chaos</h2>
+                <p class="essay-excerpt">
+                    Guest writer Marcus Chen explores how ancient Stoicism can help us navigate uncertainty. Written during modern times of upheaval, this essay channels Marcus Aurelius's meditations for contemporary life.
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+
+            <article class="essay-item show" data-category="interviews">
+                <div class="essay-date">November 8, 2024</div>
+                <h2>Pompeii: A City Frozen in Time - Interview with Dr. Romano</h2>
+                <p class="essay-excerpt">
+                    Dr. Romano shares insights from recent excavations at Pompeii. The eruption of Vesuvius in 79 CE preserved a moment in Roman life with unprecedented detail, revealing both the mundane and extraordinary.
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+
+            <article class="essay-item show" data-category="deep-dives">
+                <div class="essay-date">October 25, 2024</div>
+                <h2>The Oracle at Delphi: Ancient Prophecy and Power</h2>
+                <p class="essay-excerpt">
+                    For over a thousand years, the Oracle at Delphi was the most powerful religious institution in the ancient world. How did the Pythia's prophecies shape Greek history and politics?
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+
+            <article class="essay-item show" data-category="highlights">
+                <div class="essay-date">October 18, 2024</div>
+                <h2>Reading Homer in Translation</h2>
+                <p class="essay-excerpt">
+                    Professor Elena Vasquez discusses the challenges and rewards of translating ancient epic poetry. What's lost and gained when we read Homer in English?
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+
+            <article class="essay-item show" data-category="interviews">
+                <div class="essay-date">October 10, 2024</div>
+                <h2>Decoding Ancient Greek Theater with Professor James Wright</h2>
+                <p class="essay-excerpt">
+                    A conversation about the Festival of Dionysus, mask work, and why ancient Greek tragedy still resonates 2,500 years later. Professor Wright brings decades of theatrical experience to classical texts.
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+
+            <article class="essay-item show" data-category="deep-dives">
+                <div class="essay-date">October 1, 2024</div>
+                <h2>The Roman Colosseum: Engineering Marvel and Symbol of Empire</h2>
+                <p class="essay-excerpt">
+                    Beyond the gladiator battles and spectacle, the Colosseum represents Roman engineering prowess and political propaganda. A deep dive into the architecture and social function of Rome's greatest monument.
+                </p>
+                <a href="#" class="read-link">Continue reading</a>
+            </article>
+        </div>
+    </div>
+
+    <div class="container">
+        <footer>
+            <p>© 2026 Labours of Love</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleBio() {
+            const bio = document.querySelector('.bio-expanded');
+            const contact = document.querySelector('.contact-expanded');
+            const container = document.querySelector('.container');
+            
+            // Close contact if open
+            contact.classList.remove('show');
+            
+            // Toggle bio
+            bio.classList.toggle('show');
+            if (bio.classList.contains('show')) {
+                container.classList.add('bio-open');
+            } else {
+                container.classList.remove('bio-open');
+            }
+        }
+
+        function toggleContact() {
+            const bio = document.querySelector('.bio-expanded');
+            const contact = document.querySelector('.contact-expanded');
+            const container = document.querySelector('.container');
+            
+            // Close bio if open
+            bio.classList.remove('show');
+            
+            // Toggle contact
+            contact.classList.toggle('show');
+            if (contact.classList.contains('show')) {
+                container.classList.add('bio-open');
+            } else {
+                container.classList.remove('bio-open');
+            }
+        }
+
+        // Category filtering - default to deep-dives
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const essayItems = document.querySelectorAll('.essay-item');
+
+        // Show deep-dives by default
+        essayItems.forEach(item => {
+            item.classList.remove('show', 'visible');
+            if (item.dataset.category === 'deep-dives') {
+                item.classList.add('show');
+            }
+        });
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter essays
+                essayItems.forEach(item => {
+                    item.classList.remove('show', 'visible');
+                    
+                    if (item.dataset.category === filter) {
+                        item.classList.add('show');
+                    }
+                });
+                
+                // Re-observe visible items
+                setTimeout(() => {
+                    document.querySelectorAll('.essay-item.show').forEach(item => {
+                        observer.observe(item);
+                    });
+                }, 50);
+            });
+        });
+
+        // Scroll-triggered fade in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 150);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.essay-item.show').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
