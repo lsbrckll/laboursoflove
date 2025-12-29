@@ -256,10 +256,45 @@
             font-style: normal;
         }
 
-        .subscribe-inline iframe {
-            max-width: 480px;
+        .subscribe-form-inline {
+            display: flex;
+            max-width: 420px;
             margin: 0 auto;
-            display: block;
+            gap: 10px;
+        }
+
+        .subscribe-form-inline input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+            font-family: 'Work Sans', sans-serif;
+            color: #1a1a1a;
+        }
+
+        .subscribe-form-inline input:focus {
+            outline: none;
+            border-color: #1a1a1a;
+        }
+
+        .subscribe-form-inline input::placeholder {
+            color: #999;
+        }
+
+        .subscribe-form-inline button {
+            padding: 10px 25px;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Work Sans', sans-serif;
+            transition: background 0.3s ease;
+        }
+
+        .subscribe-form-inline button:hover {
+            background: #333;
         }
 
         .category-nav {
@@ -530,7 +565,10 @@
 
         <div class="subscribe-inline">
             <p>Thoughtful writing, delivered on Sundays</p>
-            <iframe src="https://thelaboursoflove.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+            <form class="subscribe-form-inline" action="https://thelaboursoflove.substack.com/subscribe" method="post" target="_blank">
+                <input type="email" name="email" placeholder="your@email.com" required>
+                <button type="submit">Subscribe</button>
+            </form>
         </div>
 
         <div class="category-nav">
