@@ -62,18 +62,69 @@
         .read-link:hover { border-bottom-color: transparent; padding-left: 5px; }
         footer { padding: 60px 0; text-align: center; font-size: 0.85rem; color: #bbb; }
         @media (max-width: 768px) {
-            .top-nav { flex-direction: column; gap: 15px; align-items: flex-start; padding: 15px 30px; }
-            .container { padding: 0 30px; }
-            .container.bio-open { transform: translateX(-80px); }
-            header { padding: 50px 0 40px; }
-            .hero-image { height: 180px; margin: 0 -30px 20px -30px; width: calc(100% + 60px); max-width: calc(100% + 60px); }
-            .site-title-nav { position: static; transform: none; margin-top: 10px; }
+            .top-nav { 
+                flex-direction: row; 
+                justify-content: center;
+                align-items: center; 
+                padding: 15px 20px; 
+            }
+            .author-name { display: none; }
+            .site-title-nav { 
+                position: static; 
+                transform: none; 
+                font-size: 1.4rem;
+            }
             .nav-links { display: none; }
-            .bio-expanded, .contact-expanded { width: 100%; right: -100%; padding: 80px 30px 30px; }
+            .container { padding: 0 20px; }
+            .container.bio-open { transform: translateX(-80px); }
+            header { padding: 80px 0 30px; text-align: center; }
+            .hero-image { 
+                display: none;
+            }
+            .site-description { 
+                font-size: 0.95rem; 
+                padding: 0 10px;
+                text-align: center;
+            }
+            .topics {
+                justify-content: center;
+            }
+            .subscribe-inline { 
+                padding: 25px 0;
+                text-align: center;
+            }
+            .subscribe-inline p {
+                text-align: center;
+            }
+            .subscribe-form-inline { 
+                flex-direction: column; 
+                max-width: 100%; 
+                gap: 12px;
+                margin: 0 auto;
+            }
+            .subscribe-form-inline input,
+            .subscribe-form-inline button { 
+                width: 100%; 
+                padding: 12px 15px;
+            }
+            .bio-expanded, .contact-expanded { 
+                width: 100%; 
+                right: -100%; 
+                padding: 80px 30px 30px; 
+            }
             .bio-expanded.show, .contact-expanded.show { right: 0; }
-            .category-nav { flex-direction: column; gap: 25px; }
-            .category-item { max-width: 100%; }
+            .category-nav { 
+                flex-direction: column; 
+                gap: 25px; 
+                padding: 30px 0;
+                align-items: center;
+            }
+            .category-item { 
+                max-width: 100%;
+                text-align: center;
+            }
             .essay-item { padding: 40px 0; }
+            .essay-item:hover { padding-left: 0; }
             .essay-item h2 { font-size: 1.8rem; }
         }
     </style>
@@ -91,11 +142,11 @@
         <span class="contact-close" onclick="toggleContact()">×</span>
         <p>Have thoughts on an essay? Questions about Classics? Interested in contributing a guest piece? I'd be glad to hear from you.</p>
         
-        Email: <a href="mailto:laboursofloveblog@gmail.com">laboursofloveblog@gmail.com</a></p>
+        <p>Email: <a href="mailto:laboursofloveblog@gmail.com">laboursofloveblog@gmail.com</a></p>
         
         <p>
             Instagram:<br>
-            <a href="https://instagram.com/labours0flove">@labours0flove</a><p>
+            <a href="https://instagram.com/labours0flove">@labours0flove</a>
         </p>
     </div>
 
