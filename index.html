@@ -79,6 +79,27 @@
         header {
             padding: 60px 0 30px;
             text-align: center;
+            position: relative;
+            background-image: url('https://unsplash.com/photos/a-building-with-columns-and-a-road-O4ZcHaQG3ls');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(254, 254, 254, 0.85);
+            z-index: 0;
+        }
+
+        header > * {
+            position: relative;
+            z-index: 1;
         }
 
         .bio-toggle {
@@ -716,7 +737,7 @@
                 // Show success message
                 messageDiv.style.display = 'block';
                 messageDiv.style.color = '#27ae60';
-                messageDiv.textContent = '✓ Successfully subscribed! Check your inbox.';
+                messageDiv.textContent = '✓ Successfully subscribed! Looking forward to sharing with you.';
                 document.getElementById('emailInput').value = '';
                 
             } catch (error) {
