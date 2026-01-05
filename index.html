@@ -297,6 +297,11 @@
             background: #333;
         }
 
+        .subscribe-form-inline button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
         .category-nav {
             display: flex;
             gap: 40px;
@@ -565,10 +570,11 @@
 
         <div class="subscribe-inline">
             <p>Thoughtful writing, delivered on Sundays</p>
-            <form class="subscribe-form-inline" action="https://thelaboursoflove.substack.com/subscribe" method="post" target="_blank">
-                <input type="email" name="email" placeholder="your@email.com" required>
+            <form class="subscribe-form-inline" id="subscribeForm">
+                <input type="email" name="email" id="emailInput" placeholder="your@email.com" required>
                 <button type="submit">Subscribe</button>
             </form>
+            <div id="subscribeMessage" style="margin-top: 15px; font-size: 0.9rem; display: none;"></div>
         </div>
 
         <div class="category-nav">
@@ -679,6 +685,50 @@
     </div>
 
     <script>
+        // Email collection handler
+        document.getElementById('subscribeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const messageDiv = document.getElementById('subscribeMessage');
+            const submitBtn = e.target.querySelector('button');
+            
+            // Disable button during submission
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subscribing...';
+            
+            try {
+                // Google Sheets with Secret Key
+                const response = await fetch('https://script.google.com/macros/s/AKfycbw5Iedhq1BP15XaCS265cNTCPyVg7ebXnybvc2pdlXWQB4NYxcay3ouUT91bRLOh9I/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        page: 'Home',
+                        key: 'sk_labours2025_secure92jf8h3f'
+                    })
+                });
+                
+                // Show success message
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = '#27ae60';
+                messageDiv.textContent = '✓ Successfully subscribed! Check your inbox.';
+                document.getElementById('emailInput').value = '';
+                
+            } catch (error) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = '#e63946';
+                messageDiv.textContent = 'Something went wrong. Please try again.';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Subscribe';
+            }
+        });
+
         function toggleBio() {
             const bio = document.querySelector('.bio-expanded');
             const contact = document.querySelector('.contact-expanded');
