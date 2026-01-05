@@ -69,6 +69,8 @@
             margin: 0 auto;
             padding: 0 40px;
             transition: transform 0.4s ease, opacity 0.4s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .container.bio-open {
@@ -76,28 +78,36 @@
             opacity: 0.3;
         }
 
-        header {
-            padding: 60px 0 30px;
-            text-align: center;
+        .header-section {
             position: relative;
             background-image: url('https://images.unsplash.com/photo-1668361146491-93ef3816a65c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            margin: 0 -40px;
-            padding-left: 40px;
-            padding-right: 40px;
+            margin: 0 -100vw;
+            padding: 0 100vw;
         }
 
-        header::before {
+        .header-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(254, 254, 254, 0.65);
+            background: rgba(254, 254, 254, 0.80);
             z-index: 0;
+        }
+
+        .header-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+            position: relative;
         }
 
         header > * {
@@ -236,13 +246,16 @@
             max-width: 100%;
             overflow: hidden;
             position: relative;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
         }
 
         .topics-row {
             display: flex;
             gap: 25px;
-            animation: slideTopics 25s linear infinite;
+            animation: slideTopics 30s linear infinite;
             flex-shrink: 0;
+            will-change: transform;
         }
 
         @keyframes slideTopics {
@@ -250,7 +263,7 @@
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(-50%);
+                transform: translateX(calc(-25px * 12 - 300px));
             }
         }
 
@@ -285,6 +298,12 @@
             padding: 25px 0 35px;
             text-align: center;
             border-bottom: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        .subscribe-inline > * {
+            position: relative;
+            z-index: 1;
         }
 
         .subscribe-inline p {
@@ -592,47 +611,49 @@
     </nav>
 
     <div class="container">
-        <header>
-            <h1 class="site-title">Labours of Love</h1>
-            <p class="site-description">Essays on classical antiquity and the enduring questions of the human experience:</p>
-            <div class="topics">
-                <div class="topics-row">
-                    <span class="topic">🎨 art</span>
-                    <span class="topic">📚 literature</span>
-                    <span class="topic">💭 philosophy</span>
-                    <span class="topic">🗣️ linguistics</span>
-                    <span class="topic">⏳ history</span>
-                    <span class="topic">🪙 numismatics</span>
-                    <span class="topic">🏛️ archaeology</span>
-                    <span class="topic">🗳️ politics</span>
-                    <span class="topic">🌍 languages</span>
-                    <span class="topic">⚖️ law</span>
-                    <span class="topic">🎭 theater</span>
-                    <span class="topic">📜 epigraphy</span>
-                    <!-- Duplicate for seamless loop -->
-                    <span class="topic">🎨 art</span>
-                    <span class="topic">📚 literature</span>
-                    <span class="topic">💭 philosophy</span>
-                    <span class="topic">🗣️ linguistics</span>
-                    <span class="topic">⏳ history</span>
-                    <span class="topic">🪙 numismatics</span>
-                    <span class="topic">🏛️ archaeology</span>
-                    <span class="topic">🗳️ politics</span>
-                    <span class="topic">🌍 languages</span>
-                    <span class="topic">⚖️ law</span>
-                    <span class="topic">🎭 theater</span>
-                    <span class="topic">📜 epigraphy</span>
+        <div class="header-section">
+            <header>
+                <h1 class="site-title">Labours of Love</h1>
+                <p class="site-description">Essays on classical antiquity and the enduring questions of the human experience:</p>
+                <div class="topics">
+                    <div class="topics-row">
+                        <span class="topic">🎨 art</span>
+                        <span class="topic">📚 literature</span>
+                        <span class="topic">💭 philosophy</span>
+                        <span class="topic">🗣️ linguistics</span>
+                        <span class="topic">⏳ history</span>
+                        <span class="topic">🪙 numismatics</span>
+                        <span class="topic">🏛️ archaeology</span>
+                        <span class="topic">🗳️ politics</span>
+                        <span class="topic">🌍 languages</span>
+                        <span class="topic">⚖️ law</span>
+                        <span class="topic">🎭 theater</span>
+                        <span class="topic">📜 epigraphy</span>
+                        <!-- Duplicate for seamless loop -->
+                        <span class="topic">🎨 art</span>
+                        <span class="topic">📚 literature</span>
+                        <span class="topic">💭 philosophy</span>
+                        <span class="topic">🗣️ linguistics</span>
+                        <span class="topic">⏳ history</span>
+                        <span class="topic">🪙 numismatics</span>
+                        <span class="topic">🏛️ archaeology</span>
+                        <span class="topic">🗳️ politics</span>
+                        <span class="topic">🌍 languages</span>
+                        <span class="topic">⚖️ law</span>
+                        <span class="topic">🎭 theater</span>
+                        <span class="topic">📜 epigraphy</span>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <div class="subscribe-inline">
-            <p>Thoughtful writing, delivered on Sundays</p>
-            <form class="subscribe-form-inline" id="subscribeForm">
-                <input type="email" name="email" id="emailInput" placeholder="your@email.com" required>
-                <button type="submit">Subscribe</button>
-            </form>
-            <div id="subscribeMessage" style="margin-top: 15px; font-size: 0.9rem; display: none;"></div>
+            <div class="subscribe-inline">
+                <p>Thoughtful writing, delivered on Sundays</p>
+                <form class="subscribe-form-inline" id="subscribeForm">
+                    <input type="email" name="email" id="emailInput" placeholder="your@email.com" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <div id="subscribeMessage" style="margin-top: 15px; font-size: 0.9rem; display: none;"></div>
+            </div>
         </div>
 
         <div class="category-nav">
