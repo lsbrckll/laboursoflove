@@ -84,6 +84,9 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            margin: 0 -40px;
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
         header::before {
@@ -93,7 +96,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(254, 254, 254, 0.85);
+            background: rgba(254, 254, 254, 0.65);
             z-index: 0;
         }
 
@@ -226,11 +229,29 @@
 
         .topics {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 18px 25px;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            gap: 25px;
             margin: 15px auto;
-            max-width: 650px;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .topics-row {
+            display: flex;
+            gap: 25px;
+            animation: slideTopics 25s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes slideTopics {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         .topic {
@@ -239,11 +260,12 @@
             transition: all 0.3s ease;
             cursor: default;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .topic:hover {
             color: #1a1a1a;
-            transform: translateY(-1px);
+            transform: translateY(-1px) scale(1.05);
         }
 
         .topic:nth-child(1):hover { color: #e63946; }
@@ -574,18 +596,33 @@
             <h1 class="site-title">Labours of Love</h1>
             <p class="site-description">Essays on classical antiquity and the enduring questions of the human experience:</p>
             <div class="topics">
-                <span class="topic">🎨 art</span>
-                <span class="topic">📚 literature</span>
-                <span class="topic">💭 philosophy</span>
-                <span class="topic">🗣️ linguistics</span>
-                <span class="topic">⏳ history</span>
-                <span class="topic">🪙 numismatics</span>
-                <span class="topic">🏛️ archaeology</span>
-                <span class="topic">🗳️ politics</span>
-                <span class="topic">🌍 languages</span>
-                <span class="topic">⚖️ law</span>
-                <span class="topic">🎭 theater</span>
-                <span class="topic">📜 epigraphy</span>
+                <div class="topics-row">
+                    <span class="topic">🎨 art</span>
+                    <span class="topic">📚 literature</span>
+                    <span class="topic">💭 philosophy</span>
+                    <span class="topic">🗣️ linguistics</span>
+                    <span class="topic">⏳ history</span>
+                    <span class="topic">🪙 numismatics</span>
+                    <span class="topic">🏛️ archaeology</span>
+                    <span class="topic">🗳️ politics</span>
+                    <span class="topic">🌍 languages</span>
+                    <span class="topic">⚖️ law</span>
+                    <span class="topic">🎭 theater</span>
+                    <span class="topic">📜 epigraphy</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="topic">🎨 art</span>
+                    <span class="topic">📚 literature</span>
+                    <span class="topic">💭 philosophy</span>
+                    <span class="topic">🗣️ linguistics</span>
+                    <span class="topic">⏳ history</span>
+                    <span class="topic">🪙 numismatics</span>
+                    <span class="topic">🏛️ archaeology</span>
+                    <span class="topic">🗳️ politics</span>
+                    <span class="topic">🌍 languages</span>
+                    <span class="topic">⚖️ law</span>
+                    <span class="topic">🎭 theater</span>
+                    <span class="topic">📜 epigraphy</span>
+                </div>
             </div>
         </header>
 
